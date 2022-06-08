@@ -14,4 +14,5 @@ def benchmark_sorts(funcs):
 
 if __name__ == "__main__":
     benchmark_sorts({bubble_sort: 10_000,
-                     selection_sort: 10_000})
+                     selection_sort: 10_000,
+                     insertion_sort: 10_000})
