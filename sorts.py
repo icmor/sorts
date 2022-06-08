@@ -60,22 +60,32 @@ def mergesort(l: list) -> list:
 def quicksort(l: list) -> list:
     def sort(lo: int, hi: int) -> None:
         if lo >= hi: return
-        mid = partition(lo, hi)
-        sort(lo, mid - 1)
+        if lo == hi - 1:
+            if l[lo] > l[hi]: l[lo], l[hi] = l[hi], l[lo]
+            return
+        mid = (lo + hi) // 2
+        median_of_three(lo, mid, hi)
+        mid = partition(lo, mid, hi)
+        sort(lo, mid)
         sort(mid + 1, hi)
 
-    def partition(lo: int, hi: int) -> int:
-        mid = (lo + hi) // 2
+    def partition(lo: int, mid: int, hi: int) -> int:
         pivot = l[mid]
-        l[mid], l[hi] = l[hi], l[mid]
         i = lo - 1
-        for j in range(lo, hi):
-            if l[j] <= pivot:
-                i += 1
-                l[i], l[j] = l[j], l[i]
-        i += 1
-        l[hi], l[i] = l[i], l[hi]
-        return i
+        j = hi + 1
+        while True:
+            while l[i := i + 1] < pivot: pass
+            while l[j := j - 1] > pivot: pass
+            if i >= j: return j
+            l[i], l[j] = l[j], l[i]
+
+    def median_of_three(lo: int, mid: int, hi: int) -> None:
+        if l[mid] < l[lo]:
+            l[mid], l[lo] = l[lo], l[mid]
+        if l[hi] > l[mid]: return
+        l[hi], l[mid] = l[mid], l[hi]
+        if l[mid] < l[lo]:
+            l[hi], l[mid] = l[mid], l[hi]
 
     sort(0, len(l) - 1)
     return l
