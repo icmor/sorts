@@ -16,4 +16,5 @@ if __name__ == "__main__":
     benchmark_sorts({bubble_sort: 10_000,
                      selection_sort: 10_000,
                      insertion_sort: 10_000,
-                     mergesort: 1_000_000})
+                     mergesort: 1_000_000,
+                     quicksort: 1_000_000})

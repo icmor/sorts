@@ -5,7 +5,8 @@ import random
 funcs = ({bubble_sort: 100,
           selection_sort: 100,
           insertion_sort: 100,
-          mergesort: 10_000})
+          mergesort: 10_000,
+          quicksort: 10_000})
 
 class TestSorts(unittest.TestCase):
     def test_random(self):

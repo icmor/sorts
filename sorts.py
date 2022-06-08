@@ -57,3 +57,25 @@ def mergesort(l: list) -> list:
     return l
 
 
+def quicksort(l: list) -> list:
+    def sort(lo: int, hi: int) -> None:
+        if lo >= hi: return
+        mid = partition(lo, hi)
+        sort(lo, mid - 1)
+        sort(mid + 1, hi)
+
+    def partition(lo: int, hi: int) -> int:
+        mid = (lo + hi) // 2
+        pivot = l[mid]
+        l[mid], l[hi] = l[hi], l[mid]
+        i = lo - 1
+        for j in range(lo, hi):
+            if l[j] <= pivot:
+                i += 1
+                l[i], l[j] = l[j], l[i]
+        i += 1
+        l[hi], l[i] = l[i], l[hi]
+        return i
+
+    sort(0, len(l) - 1)
+    return l
