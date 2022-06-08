@@ -7,3 +7,16 @@ def bubble_sort(l: list) -> list:
                 l[j], l[j+1] = l[j+1], l[j]
         if not swap: break
     return l
+
+
+def selection_sort(l: list) -> list:
+    for i in range(len(l) - 1):
+        idx = i
+        val = l[i]
+        for j in range(i + 1, len(l)):
+            if l[j] < val:
+                idx = j
+                val = l[j]
+        l[i], l[idx] = val, l[i]
+    return l
+
