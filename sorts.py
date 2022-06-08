@@ -31,3 +31,29 @@ def insertion_sort(l: list) -> list:
         l[j+1] = val
     return l
 
+
+def mergesort(l: list) -> list:
+    def sort(l: list) -> list:
+        if len(l) <= 1: return l
+        left = sort(l[len(l)//2:])
+        right = sort(l[:len(l)//2])
+        return merge(left, right)
+
+    def merge(left: list, right: list) -> list:
+        l = []
+        i = j = 0
+        while i < len(left) and j < len(right):
+            if left[i] <= right[j]:
+                l.append(left[i])
+                i += 1
+            else:
+                l.append(right[j])
+                j += 1
+        if i == len(left): l.extend(right[j:])
+        else: l.extend(left[i:])
+        return l
+
+    l[:] = sort(l)
+    return l
+
+
