@@ -33,27 +33,42 @@ def insertion_sort(l: list) -> list:
 
 
 def mergesort(l: list) -> list:
-    def sort(l: list) -> list:
-        if len(l) <= 1: return l
-        left = sort(l[len(l)//2:])
-        right = sort(l[:len(l)//2])
-        return merge(left, right)
+    def sort(src: list, dst: list, lo: int, hi: int) -> None:
+        if lo >= hi: return
+        if lo + 1 == hi:
+            if src[lo] > src[hi]: dst[lo], dst[hi] = src[hi], src[lo]
+            return
+        mid = (lo + hi) // 2
+        sort(dst, src, lo, mid)
+        sort(dst, src, mid + 1, hi)
+        merge(src, dst, lo, mid, hi)
 
-    def merge(left: list, right: list) -> list:
-        l = []
-        i = j = 0
-        while i < len(left) and j < len(right):
-            if left[i] <= right[j]:
-                l.append(left[i])
+    def merge(src: list, dst: list, lo: int, mid: int, hi: int) -> None:
+        if src[mid] <= src[mid+1]:
+            for i in range(lo, hi+1): dst[i] = src[i]
+            return
+        idx = i = lo
+        j = mid + 1
+        while i <= mid and j <= hi:
+            if src[i] <= src[j]:
+                dst[idx] = src[i]
                 i += 1
             else:
-                l.append(right[j])
+                dst[idx] = src[j]
                 j += 1
-        if i == len(left): l.extend(right[j:])
-        else: l.extend(left[i:])
-        return l
+            idx += 1
+        if i > mid:
+            while j <= hi:
+                dst[idx] = src[j]
+                j += 1
+                idx += 1
+        else:
+            while i <= mid:
+                dst[idx] = src[i]
+                i += 1
+                idx += 1
 
-    l[:] = sort(l)
+    sort(l.copy(), l, 0, len(l) - 1)
     return l
 
 
