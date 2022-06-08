@@ -1,0 +1,2 @@
+* Popular sorting algorithms
+Purely to learn about algorithms and optimizations, and have some fun in the process. Possibly going to add implementations in different languages.
