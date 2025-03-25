@@ -1,42 +1,45 @@
-def bubble_sort(l: list) -> list:
-    for i in range(1, len(l)):
+def bubble_sort(lst: list) -> list:
+    for i in range(1, len(lst)):
         swap = False
-        for j in range(0, len(l) - i):
-            if l[j] > l[j+1]:
+        for j in range(0, len(lst) - i):
+            if lst[j] > lst[j+1]:
                 swap = True
-                l[j], l[j+1] = l[j+1], l[j]
-        if not swap: break
-    return l
+                lst[j], lst[j+1] = lst[j+1], lst[j]
+        if not swap:
+            break
+    return lst
 
 
-def selection_sort(l: list) -> list:
-    for i in range(len(l) - 1):
+def selection_sort(lst: list) -> list:
+    for i in range(len(lst) - 1):
         idx = i
-        val = l[i]
-        for j in range(i + 1, len(l)):
-            if l[j] < val:
+        val = lst[i]
+        for j in range(i + 1, len(lst)):
+            if lst[j] < val:
                 idx = j
-                val = l[j]
-        l[i], l[idx] = val, l[i]
-    return l
+                val = lst[j]
+        lst[i], lst[idx] = val, lst[i]
+    return lst
 
 
-def insertion_sort(l: list) -> list:
-    for i in range(1, len(l)):
-        val = l[i]
+def insertion_sort(lst: list) -> list:
+    for i in range(1, len(lst)):
+        val = lst[i]
         j = i - 1
-        while j >= 0 and l[j] > val:
-            l[j+1] = l[j]
+        while j >= 0 and lst[j] > val:
+            lst[j+1] = lst[j]
             j -= 1
-        l[j+1] = val
-    return l
+        lst[j+1] = val
+    return lst
 
 
-def mergesort(l: list) -> list:
+def mergesort(lst: list) -> list:
     def sort(src: list, dst: list, lo: int, hi: int) -> None:
-        if lo >= hi: return
+        if lo >= hi:
+            return
         if lo + 1 == hi:
-            if src[lo] > src[hi]: dst[lo], dst[hi] = src[hi], src[lo]
+            if src[lo] > src[hi]:
+                dst[lo], dst[hi] = src[hi], src[lo]
             return
         mid = (lo + hi) // 2
         sort(dst, src, lo, mid)
@@ -45,7 +48,8 @@ def mergesort(l: list) -> list:
 
     def merge(src: list, dst: list, lo: int, mid: int, hi: int) -> None:
         if src[mid] <= src[mid+1]:
-            for i in range(lo, hi+1): dst[i] = src[i]
+            for i in range(lo, hi+1):
+                dst[i] = src[i]
             return
         idx = i = lo
         j = mid + 1
@@ -68,15 +72,17 @@ def mergesort(l: list) -> list:
                 i += 1
                 idx += 1
 
-    sort(l.copy(), l, 0, len(l) - 1)
-    return l
+    sort(lst.copy(), lst, 0, len(lst) - 1)
+    return lst
 
 
-def quicksort(l: list) -> list:
+def quicksort(lst: list) -> list:
     def sort(lo: int, hi: int) -> None:
-        if lo >= hi: return
+        if lo >= hi:
+            return
         if lo == hi - 1:
-            if l[lo] > l[hi]: l[lo], l[hi] = l[hi], l[lo]
+            if lst[lo] > lst[hi]:
+                lst[lo], lst[hi] = lst[hi], lst[lo]
             return
         mid = (lo + hi) // 2
         median_of_three(lo, mid, hi)
@@ -85,22 +91,28 @@ def quicksort(l: list) -> list:
         sort(mid + 1, hi)
 
     def partition(lo: int, mid: int, hi: int) -> int:
-        pivot = l[mid]
+        pivot = lst[mid]
         i = lo - 1
         j = hi + 1
         while True:
-            while l[i := i + 1] < pivot: pass
-            while l[j := j - 1] > pivot: pass
-            if i >= j: return j
-            l[i], l[j] = l[j], l[i]
+            while lst[i := i + 1] < pivot:
+                pass
+            while lst[j := j - 1] > pivot:
+                pass
+            if i >= j:
+                return j
+            lst[i], lst[j] = lst[j], lst[i]
 
     def median_of_three(lo: int, mid: int, hi: int) -> None:
-        if l[mid] < l[lo]:
-            l[mid], l[lo] = l[lo], l[mid]
-        if l[hi] > l[mid]: return
-        l[hi], l[mid] = l[mid], l[hi]
-        if l[mid] < l[lo]:
-            l[hi], l[mid] = l[mid], l[hi]
+        if lst[mid] < lst[lo]:
+            lst[mid], lst[lo] = lst[lo], lst[mid]
+        if lst[hi] > lst[mid]:
+            return
+        lst[hi], lst[mid] = lst[mid], lst[hi]
+        if lst[mid] < lst[lo]:
+            lst[hi], lst[mid] = lst[mid], lst[hi]
 
-    sort(0, len(l) - 1)
-    return l
+    sort(0, len(lst) - 1)
+    return lst
+
+
