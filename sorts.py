@@ -116,3 +116,24 @@ def quicksort(lst: list) -> list:
     return lst
 
 
+def heapsort(lst: list) -> list:
+    def heapify() -> None:
+        # iterate over all non-leaf nodes fixing the corresponding heaps
+        for root in range((len(lst) - 2) // 2, -1, -1):
+            sift(root, len(lst))
+
+    def sift(root: int, end: int) -> None:
+        while (child := root * 2 + 1) < end:
+            if child + 1 < end and lst[child] < lst[child + 1]:
+                child += 1
+            if lst[root] < lst[child]:
+                lst[root], lst[child] = lst[child], lst[root]
+                root = child
+            else:
+                break
+
+    heapify()
+    for end in range(len(lst) - 1, 0, -1):
+        lst[0], lst[end] = lst[end], lst[0]
+        sift(0, end)
+    return lst

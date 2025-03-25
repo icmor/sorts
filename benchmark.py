@@ -17,4 +17,5 @@ if __name__ == "__main__":
                      selection_sort: 10_000,
                      insertion_sort: 10_000,
                      mergesort: 1_000_000,
-                     quicksort: 1_000_000})
+                     quicksort: 1_000_000,
+                     heapsort: 1_000_000})
